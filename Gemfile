@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.6'
+gem 'rails', '~> 5.0.5'
 # Use sqlite3 as the database for Active Record
 gem 'mysql2'
 # Use Puma as the app server
@@ -41,6 +41,8 @@ gem 'will_paginate', github: 'jonatack/will_paginate'
 gem 'will_paginate-bootstrap'
 
 gem 'devise'
+gem 'rolify'
+gem 'cancancan'
 
 
 group :development, :test do
