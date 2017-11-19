@@ -17,4 +17,10 @@ module ApplicationHelper
     expected_value.include?(actual_value) ? 'active' : ''
   end
 
+  def date_time time
+    if time
+      Time.at(time).strftime("%Y-%m-%d %H:%M:%S")
+    end
+  end
+
 end

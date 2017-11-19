@@ -1,0 +1,26 @@
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-heading#operations
+        | 基本信息
+      .panel-body
+        table.table.table-striped
+          tr
+            td width='13%' 取件地址
+            td width='20%' = @waybill.from_address
+            td width='13%' 送地址
+            td width='20%' = @waybill.to_address
+          tr
+            td width='13%' 当前状态
+            td width='20%' = show_waybill_status @waybill.status
+            td width='13%' 期望执行
+            td width='20%' = date_time @waybill.exp_time
+            td width='13%' 实际执行
+            td width='20%' = date_time @waybill.actual_time
+  - if @waybill.new?
+    = link_to '接单', accept_waybill_path(@waybill), method: :put, class: 'btn btn-info btn-sm'
+    = link_to '拒单', reject_waybill_path(@waybill), method: :put, class: 'btn btn-info btn-sm'
+  - elsif @waybill.accepted?
+    = link_to '已取', yiqu_waybill_path(@waybill), method: :put, class: 'btn btn-info btn-sm'
+  
+  = link_to 'Back', waybills_path
