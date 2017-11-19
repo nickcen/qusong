@@ -24,12 +24,13 @@ class Waybill < ApplicationRecord
     state :finished
   end
 
-  def accepted
+  def accept
   end
 
   def finish
   end
 
   def reject
+    self.order.create_waybill
   end
 end
