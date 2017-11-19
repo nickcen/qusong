@@ -48,6 +48,7 @@ gem 'cancancan'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'database_cleaner', '< 1.1.0'
 end
 
 group :development do
