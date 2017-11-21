@@ -25,12 +25,14 @@ class Waybill < ApplicationRecord
   end
 
   def accept
+    self.order.next!
   end
 
   def finish
+    self.order.next!
   end
 
   def reject
-    self.order.create_waybill
+    self.order.prev!
   end
 end
