@@ -1,3 +1,10 @@
+ol.breadcrumb
+  li.active 
+    = link_to '取送单', waybills_path
+
+.clear
+br
+
 .row
   .col-md-12
     .panel.panel-default
@@ -17,10 +24,48 @@
             td width='20%' = date_time @waybill.exp_time
             td width='13%' 实际执行
             td width='20%' = date_time @waybill.actual_time
+          - voucher = @waybill.order.voucher
+          tr
+            td width='13%' 订单金额
+            td width='20%' 
+              = @waybill.order.voucher.money if voucher
+            td width='13%' 支付状态
+            td width='20%' 
+              = @waybill.order.voucher.status ? '待支付' : '已支付' if voucher
   - if @waybill.new?
     = link_to '接单', accept_waybill_path(@waybill), method: :put, class: 'btn btn-info btn-sm'
     = link_to '拒单', reject_waybill_path(@waybill), method: :put, class: 'btn btn-info btn-sm'
   - elsif @waybill.accepted?
     = link_to '已取', yiqu_waybill_path(@waybill), method: :put, class: 'btn btn-info btn-sm'
   
-  = link_to 'Back', waybills_path
+
+.clear
+br
+
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-heading#operations
+        | 分拣信息
+      .panel-body
+        table.table.table-striped
+          tr
+            th 产品
+            th 数量
+            th 单价
+            th 总价
+            th
+            th
+          - @waybill.order.items.each do |item|
+            tr
+              td = item.product
+              td = item.amount
+              td = item.price
+              td = item.amount * item.price
+              td = link_to 'Edit', edit_waybill_item_path(@waybill, item)
+              td = link_to 'Destroy', waybill_item_path(@waybill, item), data: { confirm: 'Are you sure?' }, method: :delete
+      - unless @waybill.order.voucher
+        .panel-footer
+          = link_to '分拣', new_waybill_item_path(@waybill), class: 'btn btn-info btn-sm'
+          |    
+          = link_to '计价完毕', submit_items_waybill_path(@waybill), class: 'btn btn-info btn-sm', method: :put

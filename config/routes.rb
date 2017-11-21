@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       put :accept
       put :reject
       put :yiqu
+      put :submit_items
     end
+    resources :items 
   end
 
   get 'home', to: 'home#index'

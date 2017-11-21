@@ -51,6 +51,13 @@ class WaybillsController < ApplicationController
     end
   end
 
+  def submit_items
+    respond_to do |format|
+      @waybill.order.generate_voucher
+      format.html { redirect_to :back, notice: '计价信息提交成功.' }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_waybill
